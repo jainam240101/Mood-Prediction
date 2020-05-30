@@ -3,7 +3,7 @@ import numpy as np
 
 class FacialExpressionModel(object):
 
-    EMOTIONS_LIST = ["Angry","Disgust","Fear","Happy","Sad","Surprise","Neutral"]
+    EMOTIONS_LIST = ["Angry","Happy","Sad","Surprise","Neutral"]
     def __init__(self, model_json_file, model_weights_file):
         # load model from JSON file
         with open(model_json_file, "r") as json_file:
@@ -16,4 +16,11 @@ class FacialExpressionModel(object):
 
     def predict_emotion(self, img):
         self.preds = self.loaded_model.predict(img)
+        expression= FacialExpressionModel.EMOTIONS_LIST[np.argmax(self.preds)]
+        if(expression=="Neutral"):
+            print("Counting Stars by OneRepublic")
+        elif(expression=="Angry"):
+            print("Lose Yourself by Eminem")
+        elif(expression=="Happy"):
+            print("The Nights by Avicci")
         return FacialExpressionModel.EMOTIONS_LIST[np.argmax(self.preds)]
